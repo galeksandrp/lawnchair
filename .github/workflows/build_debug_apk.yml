@@ -1,0 +1,25 @@
+name: Android CI
+
+on: push
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    container: galeksandrp/docker-android-sdk:ubuntu-standalone
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Create local.properties
+      run: |
+        echo "storePass=${{ secrets.SIGNING_STORE_PASSWORD }}
+        keyPass=${{ secrets.SIGNING_KEY_PASSWORD }}" > ./local.properties
+
+    - name: Step 2 The actual point of all of this
+      run: bash ./build-ci.sh
+      env:
+        MAJOR_MINOR: 2.0
+        CI_BUILD: true
+        CI_BUILD_NUMBER: 2590
+        CI_EVENT_TYPE: push
