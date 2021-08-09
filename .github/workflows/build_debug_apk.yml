@@ -23,3 +23,9 @@ jobs:
         CI_BUILD: true
         CI_BUILD_NUMBER: 2590
         CI_EVENT_TYPE: push
+
+    - name: Step 3 Upload to Github Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Lawnchair-dev
+        path: build/outputs/apk/*/*/*.apk
